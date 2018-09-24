@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 
 class Timer extends Component {
-
-  state = {
-    time: 0,
-    color: '#'+Math.floor(Math.random()*16777215).toString(16)
+  constructor() {
+    super()
+    this.state = {
+      time: 0,
+      color: '#'+Math.floor(Math.random()*16777215).toString(16)
+    }
   }
 
   // add your code here
+  componentDidMount(){//Write a componentDidMount that
+    this.time = setInterval(//initializes an interval
+      this.clockTick, 1000)//Pass clockTick as callback function & set it to 1000 to update every second
+  }//when new timer is added, should see displayed number increase every second
 
-
-
-
-
+  componentWillUnMount() {
+    clearInterval(this.time)
+  }
 
 
   render() {
-
     const { time, color, className } = this.state
     return (
       <section className="Timer" style={{background: color}}>
@@ -32,6 +36,7 @@ class Timer extends Component {
 
   //clock functions
   clockTick = () => {
+    // alert('hello')
     this.setState(prevState => ({
       time: prevState.time+1
     }))
